@@ -1,0 +1,129 @@
+
+<div class="container" style="padding-top: 2%;">
+  <div class="row">
+      <div class="col-md-12">
+        <div class="card border-info mb-3" style="max-width: 100%;">
+          <div class="card-header" style="background-color: #593196!important; text-align: center; color: mintcream; font: 2em sans-serif;">Create Employee</div>
+          <div class="card-body">
+            <!-- <h4 class="card-title"></h4> -->
+            <form #empForm="ngForm" (ngSubmit)="saveEmployee(employee)">
+              <div class="row">
+                 <div class="col-md-6">
+                  <div class="form-group row" [class.has-error]="name.invalid && name.touched">
+                    <label class="col-sm-4 col-form-label">Full Name</label>
+                     <mat-form-field appearance="outline" class="col-md-8">
+                        <mat-label>Full Name</mat-label>
+                       <input required matInput placeholder="Name" [(ngModel)]="employee.name" name="name" #name="ngModel">
+                       <mat-error *ngIf="name.hasError('required')">
+                        Name is <strong>required</strong>
+                      </mat-error>
+                     </mat-form-field>
+                  </div>
+                  <div class="form-group row" [class.has-error]="email.invalid">
+                    <label class="col-sm-4 col-form-label">Email</label>
+                     <mat-form-field appearance="outline" class="col-md-8">
+                        <mat-label>Email</mat-label>
+                       <input [required]="conPreference.value == 'Email'" matInput placeholder="Email" [email]="employee.email !== ''" [(ngModel)]="employee.email" name="email" #email="ngModel">
+                       <mat-error *ngIf="email.hasError('required')">
+                        Email is <strong>required</strong>
+                      </mat-error>
+                      <mat-error *ngIf="email.hasError('email')">
+                        Email is <strong>Invalid</strong>
+                      </mat-error>
+                     </mat-form-field>
+                  </div>
+                  <div class="form-group row" [class.has-error]="phoneNumber.invalid">
+                    <label class="col-sm-4 col-form-label">Phone</label>
+                     <mat-form-field appearance="outline" class="col-md-8">
+                        <mat-label>Phone</mat-label>
+                       <input [required]="conPreference.value == 'Phone'" matInput placeholder="Phone" [(ngModel)]="employee.phoneNumber" #phoneNumber="ngModel" name="phoneNumber" >
+                       <mat-error *ngIf="phoneNumber.hasError('required')">
+                        Phone is <strong>required</strong>
+                      </mat-error>
+                     </mat-form-field>
+
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Department</label>
+                      <mat-form-field appearance="fill" class="col-md-8" style="width: 300px;">
+                        <mat-label>Select Department</mat-label>
+                        <mat-select [(ngModel)]="employee.department" name="department">
+                          <mat-option *ngFor="let dp of departments" [value]="dp.id">
+                            {{dp.name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Department</label>
+                    <mat-form-field color="primary" appearance="fill" class="col-md-8">
+                      <mat-label>Date Of Birth</mat-label>
+                      <input matInput [matDatepicker]="picker1" [(ngModel)]="employee.dateOfBirth" name="dateOfBirth">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker color="primary" #picker1></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                 </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label  class="col-sm-4 col-form-label" style="font-size: 16px;">Contact Preference</label>
+                    <div class="col-md-6" [class.has-error]="conPreference.touched && conPreference.invalid">
+                        <mat-radio-group required class="form-control" #conPreference="ngModel"  [(ngModel)]="employee.contactPreference" name="conPreference" aria-label="Select an option">
+                          <mat-radio-button color="primary"  value="Email" style="padding-right: 2%;">Email</mat-radio-button>
+                          <mat-radio-button color="primary"  value="Phone">Phone</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-error *ngIf="conPreference.touched && conPreference.invalid">
+                          ContactPreference is required
+                        </mat-error>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label  class="col-sm-4 col-form-label" style="font-size: 16px;">Gender</label>
+                    <div class="col-md-6" [class.has-error]="gender.touched && gender.invalid">
+                        <mat-radio-group required value={{gender}} class="form-control" [(ngModel)]="employee.gender" #gender="ngModel" name="gender" aria-label="Select an option">
+                          <mat-radio-button color="primary" value="Male" style="padding-right: 2%;">Male</mat-radio-button>
+                          <mat-radio-button color="primary"  value="Female">Female</mat-radio-button>
+                        </mat-radio-group>
+
+                        <mat-error *ngIf="gender.touched && gender.invalid">
+                          Gender is required
+                        </mat-error>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <mat-checkbox color="primary" [checked]='true' name="isActive" [(ngModel)]="employee.isActive" class="example-margin">Is Active</mat-checkbox>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" style="font-size: 16px;">Photo</label>
+                    <div class="col-md-6">
+                      <mat-form-field>
+                       <input matInput placeholder="Photo Path" id="photoPath" name="photoPath" [(ngModel)]="employee.photoPath">
+                     </mat-form-field>
+                     <button type="button" mat-raised-button color="primary" (click)="toggleImagePreview()">{{previewPhoto? "Hide " : "Show "}} Preview</button>
+                     <!-- <button class="btn btn-success" >Show Preview</button> -->
+                     <img [src]="employee.photoPath" height="200" width="190" *ngIf="previewPhoto"/>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+                  <div class="col-sm-10 offset-sm-2">
+                      <button [disabled]="empForm.invalid" type="submit" class="btn btn-primary">Save</button>
+                  </div>
+              </div>
+          </form>
+          <!-- {{empForm.value | json}} -->
+          </div>
+          {{employee | json}}
+        </div>
+      </div>
+  </div>
+
+</div>
+

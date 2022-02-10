@@ -43,15 +43,18 @@
                      </mat-form-field>
 
                   </div>
-                  <div class="form-group row">
+                  <div class="form-group row" [class.has-error]="department.invalid && department.touched">
                     <label class="col-sm-4 col-form-label">Department</label>
                       <mat-form-field appearance="fill" class="col-md-8" style="width: 300px;">
                         <mat-label>Select Department</mat-label>
-                        <mat-select [(ngModel)]="employee.department" name="department">
+                        <mat-select required [(ngModel)]="employee.department" name="department" #department="ngModel">
                           <mat-option *ngFor="let dp of departments" [value]="dp.id">
                             {{dp.name}}
                           </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="department.hasError('required')">
+                          Department is <strong>required</strong>
+                        </mat-error>
                       </mat-form-field>
                   </div>
                   <div class="form-group row">

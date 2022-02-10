@@ -19,6 +19,7 @@ import {MatIconModule } from '@angular/material/icon';
 import {MatCardModule } from '@angular/material/card';
 import {MatButtonModule } from '@angular/material/button';
 import {MatProgressBarModule } from '@angular/material/progress-bar';
+import { CustomValidationDirective } from './shared/custom-Validation.directive';
 
 
 const MY_FORMATS = {
@@ -37,7 +38,8 @@ const MY_FORMATS = {
   declarations: [
     AppComponent,
       ListEmployeeComponent,
-      CreateEmployeeComponent
+      CreateEmployeeComponent,
+      CustomValidationDirective
    ],
   imports: [
     BrowserModule,

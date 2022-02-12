@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from 'src/app/Models/Employee.model';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'app-listEmployee',
   templateUrl: './listEmployee.component.html',
   styleUrls: ['./listEmployee.component.css']
 })
 export class ListEmployeeComponent implements OnInit {
 
-  employees: Employee[]=[
+  employees: Employee[] = [
     {
       id: 1,
       name: 'Mark',
@@ -46,6 +47,7 @@ export class ListEmployeeComponent implements OnInit {
 
   constructor() { }
 
+  // tslint:disable-next-line: typedef
   ngOnInit() {
   }
 

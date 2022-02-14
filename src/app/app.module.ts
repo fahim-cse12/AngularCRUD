@@ -1,3 +1,4 @@
+import { EmployeeServiceService } from './services/employeeService.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -61,6 +62,7 @@ const MY_FORMATS = {
     MatProgressBarModule
   ],
   providers: [
+    EmployeeServiceService,
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ],
   bootstrap: [AppComponent]

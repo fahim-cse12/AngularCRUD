@@ -44,4 +44,9 @@ private listEmployees: Employee[] = [
   getAllEmployees(): Employee[]{
       return this.listEmployees;
   }
+
+  // tslint:disable-next-line: typedef
+  save(employee: Employee){
+     this.listEmployees.push(employee);
+  }
 }

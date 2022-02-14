@@ -1,8 +1,11 @@
+import { Router, RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
 import { Department } from 'src/app/Models/department';
 import { Employee } from 'src/app/Models/Employee.model';
+import { EmployeeServiceService } from 'src/app/services/employeeService.service';
+import { Route } from '@angular/compiler/src/core';
 
 
 @Component({
@@ -37,7 +40,9 @@ export class CreateEmployeeComponent implements OnInit {
   };
   gender = 'Male';
 
-  constructor() { }
+
+  // tslint:disable-next-line: variable-name
+  constructor(private _empService: EmployeeServiceService, private _route: Router) { }
 
   // tslint:disable-next-line: typedef
   toggleImagePreview()
@@ -48,8 +53,9 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveEmployee(employee: Employee): void{
-    console.log(employee);
+  saveEmployee(): void{
+    this._empService.save(this.emp);
+    this._route.navigate(['list']);
   }
 
 }

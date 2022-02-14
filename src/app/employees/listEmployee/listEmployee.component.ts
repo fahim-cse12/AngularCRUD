@@ -18,5 +18,9 @@ export class ListEmployeeComponent implements OnInit {
     this.employees = this._employeeService.getAllEmployees();
   }
 
+  // tslint:disable-next-line: typedef
+  saveEmployee(employee: Employee){
+    this.employees.push(employee);
+  }
 
 }

@@ -6,7 +6,7 @@
           <div class="card-header" style="background-color: #593196!important; text-align: center; color: mintcream; font: 2em sans-serif;">Create Employee</div>
           <div class="card-body">
             <!-- <h4 class="card-title"></h4> -->
-            <form #empForm="ngForm" (ngSubmit)="saveEmployee(employee)">
+            <form #empForm="ngForm" (ngSubmit)="saveEmployee()">
               <div class="row">
                  <div class="col-md-6">
                   <div class="form-group row" [class.has-error]="name.invalid && name.touched">
